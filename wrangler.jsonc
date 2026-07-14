@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "ai-roast-show",
+  "compatibility_date": "2026-07-14",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "ai-roast-show"
+    }
+  ],
+  "vars": {
+    "AI_MOCK_MODE": "false",
+    "DEEPSEEK_BASE_URL": "https://api.deepseek.com",
+    "DEEPSEEK_MODEL": "deepseek-v4-flash",
+    "MOONSHOT_BASE_URL": "https://api.moonshot.ai/v1",
+    "KIMI_MODEL": "kimi-k2.6",
+    "AI_ROAST_MAX_TOKENS": "1800",
+    "AI_COMEBACK_MAX_TOKENS": "900",
+    "AI_REPORT_MAX_TOKENS": "900"
+  }
+}

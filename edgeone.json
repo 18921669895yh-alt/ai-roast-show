@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci",
+  "outputDirectory": ".next",
+  "cloudFunctions": {
+    "overseasRegions": ["ap-hongkong"],
+    "nodejs": {
+      "maxDuration": 120
+    }
+  }
+}

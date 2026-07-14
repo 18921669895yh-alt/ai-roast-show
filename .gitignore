@@ -1,0 +1,17 @@
+/node_modules
+/.next
+/.edgeone/
+/.open-next/
+/.wrangler/
+/out
+/playwright-report
+/test-results
+/blob-report
+*.tsbuildinfo
+.env*
+!.env.example
+.dev.vars
+/.superpowers/
+/work/
+**/.DS_Store
+*.log
