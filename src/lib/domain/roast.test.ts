@@ -131,7 +131,7 @@ describe("roastRequestSchema", () => {
 });
 
 describe("roast option schemas", () => {
-  it.each(["gentle", "familiar", "stage"])(
+  it.each(["gentle", "familiar", "stage", "extreme"])(
     "accepts roast level %s",
     (level) => {
       expect(roastLevelSchema.parse(level)).toBe(level);
@@ -139,7 +139,7 @@ describe("roast option schemas", () => {
   );
 
   it("rejects an unsupported roast level", () => {
-    expect(roastLevelSchema.safeParse("extreme").success).toBe(false);
+    expect(roastLevelSchema.safeParse("unsafe").success).toBe(false);
   });
 
   it.each(["photo", "outfit", "moments", "chat", "bio", "random"])(

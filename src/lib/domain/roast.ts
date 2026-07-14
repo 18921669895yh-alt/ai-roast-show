@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const roastLevelSchema = z.enum(["gentle", "familiar", "stage"]);
+export const roastLevelSchema = z.enum(["gentle", "familiar", "stage", "extreme"]);
 export type RoastLevel = z.infer<typeof roastLevelSchema>;
 
 export const roastModeSchema = z.enum([

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { isolateBackground } from "../layout/SafetyNotice";
 
-export type RoastLevel = "gentle" | "familiar" | "stage";
+export type RoastLevel = "gentle" | "familiar" | "stage" | "extreme";
 
 type RoastLevelSelectorProps = {
   value: RoastLevel;
@@ -14,6 +14,7 @@ const levels: Array<{ value: RoastLevel; title: string; score: string; descripti
   { value: "gentle", title: "轻轻调侃", score: "30", description: "适合第一次上台，保证还能笑着回家。" },
   { value: "familiar", title: "熟人互损", score: "65", description: "像认识你五年的朋友，说话开始不留情面。" },
   { value: "stage", title: "舞台爆梗", score: "90", description: "包袱全开，但仍然不进行恶意攻击。" },
+  { value: "extreme", title: "极其恶毒", score: "100", description: "仅限虚构喜剧吐槽，确认后才会启用。" },
 ];
 
 export default function RoastLevelSelector({ value, onChange }: RoastLevelSelectorProps) {
@@ -91,7 +92,7 @@ export default function RoastLevelSelector({ value, onChange }: RoastLevelSelect
               name="roast-level"
               value={level.value}
               checked={value === level.value}
-              onChange={() => level.value === "stage" ? setConfirmStage(true) : onChange(level.value)}
+              onChange={() => level.value === "stage" ? setConfirmStage(true) : level.value === "extreme" ? (window.confirm("极其恶毒档位只用于虚构喜剧吐槽。确认启用吗？") && onChange(level.value)) : onChange(level.value)}
             />
             <span className="level-score numeric" aria-hidden="true">{level.score}</span>
             <span className="level-card-copy"><strong>{level.title}</strong><small>{level.description}</small></span>
