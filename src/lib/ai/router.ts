@@ -17,7 +17,7 @@ function config(value: RouterConfig): Required<RouterConfig> {
     mockMode: value.mockMode ?? process.env.AI_MOCK_MODE === "true",
     deepseekConfigured: value.deepseekConfigured ?? Boolean(process.env.DEEPSEEK_API_KEY),
     kimiConfigured: value.kimiConfigured ?? Boolean(process.env.MOONSHOT_API_KEY),
-    allowImageMockFallback: value.allowImageMockFallback ?? true,
+      allowImageMockFallback: value.allowImageMockFallback ?? false,
   };
 }
 

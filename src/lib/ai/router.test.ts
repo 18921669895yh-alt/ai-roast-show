@@ -102,18 +102,18 @@ describe("routeRoast", () => {
     expect(set.kimi.roast).toHaveBeenCalledOnce();
   });
 
-  it("falls back to Mock for an invalid image response by default", async () => {
+  it("surfaces an invalid image response instead of showing Mock content", async () => {
     const set = providers({ kimi: provider({ roast: vi.fn().mockResolvedValue({ nope: true }) }) });
-    await expect(routeRoast(imageInput, set, { deepseekConfigured: true, kimiConfigured: true })).resolves.toEqual(roast);
+    await expect(routeRoast(imageInput, set, { deepseekConfigured: true, kimiConfigured: true })).rejects.toBeInstanceOf(ProviderError);
     expect(set.deepseek.roast).not.toHaveBeenCalled();
-    expect(set.mock.roast).toHaveBeenCalledOnce();
+    expect(set.mock.roast).not.toHaveBeenCalled();
   });
 
-  it("falls back to Mock for a retryable image provider failure", async () => {
+  it("surfaces a retryable image provider failure instead of showing Mock content", async () => {
     const set = providers({ kimi: provider({ roast: vi.fn().mockRejectedValue(new ProviderError("timeout", true)) }) });
-    await expect(routeRoastTraced(imageInput, set, { deepseekConfigured: true, kimiConfigured: true })).resolves.toEqual({ data: roast, provider: "mock" });
+    await expect(routeRoastTraced(imageInput, set, { deepseekConfigured: true, kimiConfigured: true })).rejects.toMatchObject({ kind: "timeout" });
     expect(set.deepseek.roast).not.toHaveBeenCalled();
-    expect(set.mock.roast).toHaveBeenCalledOnce();
+    expect(set.mock.roast).not.toHaveBeenCalled();
   });
 
   it("uses Mock when explicitly forced", async () => {
