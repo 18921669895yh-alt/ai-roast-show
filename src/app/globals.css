@@ -976,7 +976,7 @@ main { width: min(1180px, calc(100% - 2rem)); min-height: 58vh; margin-inline: a
 .share-dialog-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-4); }
 .share-dialog-header h2 { margin: 0; font-size: var(--text-xl); }
 .share-dialog-header .dialog-close { position: static; flex: 0 0 auto; color: var(--color-ink); background: var(--color-signal); }
-.share-preview-frame { width: min(100%, 40.5rem); margin-inline: auto; overflow: hidden; }
+.share-preview-frame { width: min(100%, 40.5rem); margin-inline: auto; overflow: visible; }
 .share-poster-surface { position: relative; box-sizing: border-box; display: grid; width: 100%; aspect-ratio: 160 / 56; grid-template-columns: 20% 1fr 18%; gap: 0; padding: 0; overflow: hidden; overflow-wrap: anywhere; color: #10090f; background: #f7e6b8; border: 3px solid #10090f; border-radius: 12px; word-break: break-word; }
 .share-poster-surface::before, .share-poster-surface::after { content: ""; position: absolute; top: 0; bottom: 0; width: 18px; background: radial-gradient(circle at 50% 10px, #10090f 0 5px, transparent 6px) 0 0 / 18px 20px repeat-y; }
 .share-poster-surface::before { left: -9px; } .share-poster-surface::after { right: -9px; }
@@ -988,7 +988,7 @@ main { width: min(1180px, calc(100% - 2rem)); min-height: 58vh; margin-inline: a
 .share-poster-surface > .poster-score { grid-column: 3; grid-row: 1 / span 4; display: flex; flex-direction: column; justify-content: center; border-left: 2px dashed #8e251d; background: #f0cf68; }
 .share-poster-surface > footer { grid-column: 1; grid-row: 1 / span 4; display: flex; flex-direction: column; justify-content: center; align-items: center; border-right: 2px dashed #8e251d; background: #8e251d; color: #fff4d7; }
 /* Portrait ticket: keep the full report readable in the preview and export. */
-.share-poster-surface { display: flex; aspect-ratio: 9 / 16; flex-direction: column; justify-content: flex-start; gap: 5%; padding: 8%; }
+.share-poster-surface { display: flex; aspect-ratio: auto; min-height: 62rem; height: auto; flex-direction: column; justify-content: flex-start; gap: 2rem; padding: 3.5rem 3.75rem 4rem; overflow: visible; background-color: #f7e6b8; background-image: radial-gradient(circle at 12px 0, #10090f 0 5px, transparent 6px), radial-gradient(circle at 12px 100%, #10090f 0 5px, transparent 6px); background-size: 24px 12px, 24px 12px; background-position: 0 0, 0 100%; background-repeat: repeat-x; }
 .share-poster-surface > * { padding: 0; }
 .share-poster-surface > .poster-brand, .share-poster-surface > .poster-feature, .share-poster-surface > .poster-tags, .share-poster-surface > blockquote, .share-poster-surface > .poster-score, .share-poster-surface > footer { width: 100%; border: 0; background: transparent; }
 .share-poster-surface > .poster-brand { order: 1; }
@@ -1009,7 +1009,7 @@ main { width: min(1180px, calc(100% - 2rem)); min-height: 58vh; margin-inline: a
 .poster-score strong { color: #8e251d; font-family: var(--font-number); font-size: clamp(2.3rem, 8vw, 6.5rem); line-height: 1; }
 .share-poster-surface footer { display: flex; align-items: center; gap: 3%; padding-top: 3%; border-top: 2px solid #10090f; }
 .share-poster-surface footer p { margin: 0; }
-.share-poster-surface.is-copy-dense { gap: 1.2%; justify-content: flex-start; padding: 4%; }
+.share-poster-surface.is-copy-dense { gap: 1.35rem; justify-content: flex-start; padding: 2.5rem 3rem 3rem; }
 .share-poster-surface.is-copy-dense .poster-brand span { font-size: 30px; }
 .share-poster-surface.is-copy-dense .poster-feature p { font-size: 18px; line-height: 1.35; }
 .share-poster-surface.is-copy-dense .poster-tags { gap: 6px; }
