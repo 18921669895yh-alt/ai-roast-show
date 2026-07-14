@@ -6,7 +6,7 @@ import RoastLevelSelector from "@/components/roast/RoastLevelSelector";
 import RoastModeSelector from "@/components/roast/RoastModeSelector";
 import RoastUploader from "@/components/roast/RoastUploader";
 import TextMaterialInput from "@/components/roast/TextMaterialInput";
-import LoadingComedyStage from "@/components/stage/LoadingComedyStage";
+import LoadingComedyStage, { type LoadingPhase } from "@/components/stage/LoadingComedyStage";
 import RoastPreviewStage from "@/components/stage/RoastPreviewStage";
 import { postJson } from "@/lib/api/client";
 import { roastRequestSchema, roastResultSchema, type RoastLevel, type RoastMode, type RoastResult } from "@/lib/domain/roast";
@@ -128,6 +128,7 @@ export default function RoastPage() {
   const [level, setLevel] = useState<RoastLevel>("familiar");
   const [mode, setMode] = useState<RoastMode>("photo");
   const [requestState, setRequestState] = useState<RequestState>("idle");
+  const [loadingPhase, setLoadingPhase] = useState<LoadingPhase>("writing");
   const [formError, setFormError] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [degraded, setDegraded] = useState(false);
@@ -163,12 +164,14 @@ export default function RoastPage() {
     setPreview(null);
     setDegraded(false);
     setRequestState("loading");
+    setLoadingPhase(image ? "preparing" : "writing");
     const controller = new AbortController();
     controllerRef.current = controller;
     const isCurrent = () => mountedRef.current && requestGeneration.current === generation && !controller.signal.aborted;
     try {
       const imagePayload = image ? await fileToAiPayload(image, controller.signal) : undefined;
       if (!isCurrent()) return;
+      setLoadingPhase(imagePayload ? "analyzing" : "writing");
       const payload = roastRequestSchema.parse({ text: text.trim() || undefined, image: imagePayload, level, mode });
       const envelope = await postJson<RoastResult>("/api/roast", payload, { signal: controller.signal });
       if (!isCurrent()) return;
@@ -244,7 +247,7 @@ export default function RoastPage() {
         </section>
 
         <section className={`ai-stage-panel${preview ? " has-result" : ""}`} aria-label="AI 喜剧舞台">
-          {requestState === "loading" ? <LoadingComedyStage onCancel={cancel} /> : preview ? (
+          {requestState === "loading" ? <LoadingComedyStage phase={loadingPhase} onCancel={cancel} /> : preview ? (
             <RoastPreviewStage result={preview} onViewFull={() => router.push("/result")} />
           ) : requestState === "error" ? (
             <section className="stage-error" aria-labelledby="stage-error-title">
