@@ -21,8 +21,9 @@ type RoastImagePayload = {
   size: number;
 };
 
-const MAX_AI_IMAGE_EDGE = 1280;
-const AI_IMAGE_QUALITY = 0.82;
+// Keep the vision request small enough for mobile networks and Kimi's image endpoint.
+const MAX_AI_IMAGE_EDGE = 1024;
+const AI_IMAGE_QUALITY = 0.68;
 
 function fileToDataUrl(file: File, signal: AbortSignal): Promise<string> {
   return new Promise((resolve, reject) => {
