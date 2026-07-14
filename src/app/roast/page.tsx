@@ -120,10 +120,12 @@ async function fileToAiPayload(file: File, signal: AbortSignal): Promise<RoastIm
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") throw error;
     const dataUrl = await fileToDataUrl(file, signal);
+    const size = dataUrlByteSize(dataUrl);
+    if (size > MAX_AI_IMAGE_BYTES) throw new Error("image_too_large");
     return {
       dataUrl,
       mimeType: file.type as RoastImageMimeType,
-      size: file.size,
+      size,
     };
   }
 }
@@ -174,6 +176,8 @@ export default function RoastPage() {
     setLoadingPhase(image ? "preparing" : "writing");
     const controller = new AbortController();
     controllerRef.current = controller;
+    let timedOut = false;
+    const timeoutId = window.setTimeout(() => { timedOut = true; controller.abort(); }, 45_000);
     const isCurrent = () => mountedRef.current && requestGeneration.current === generation && !controller.signal.aborted;
     try {
       const imagePayload = image ? await fileToAiPayload(image, controller.signal) : undefined;
@@ -191,13 +195,17 @@ export default function RoastPage() {
       setRequestState("idle");
     } catch (error) {
       if (!isCurrent()) return;
-      if (error instanceof DOMException && error.name === "AbortError") {
+      if (timedOut) {
+        setFormError("本次分析超过 45 秒，可能是图片识别服务繁忙，请稍后重试或改用文字素材。");
+        setRequestState("error");
+      } else if (error instanceof DOMException && error.name === "AbortError") {
         setRequestState("idle");
       } else {
         setFormError("现场信号不稳，请稍后重试。");
         setRequestState("error");
       }
     } finally {
+      window.clearTimeout(timeoutId);
       if (requestGeneration.current === generation) {
         controllerRef.current = null;
         submittingRef.current = false;
