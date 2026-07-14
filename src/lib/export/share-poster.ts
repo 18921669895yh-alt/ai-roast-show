@@ -10,12 +10,13 @@ export async function exportSharePoster(node: HTMLElement, dependencies: { toPng
     position: "fixed",
     left: "-12000px",
     top: "0",
-    width: "1080px",
-    height: "1440px",
+    width: "1600px",
+    height: "560px",
     maxWidth: "none",
     transform: "none",
     margin: "0",
-    zIndex: "-1",
+    zIndex: "9999",
+    opacity: "1",
   });
   document.body.append(clone);
   let anchor: HTMLAnchorElement | null = null;
@@ -23,10 +24,10 @@ export async function exportSharePoster(node: HTMLElement, dependencies: { toPng
     const dataUrl = await (dependencies.toPng ?? htmlToPng)(clone, {
       pixelRatio: 2,
       cacheBust: true,
-      width: 1080,
-      height: 1440,
+      width: 1600,
+      height: 560,
       backgroundColor: "#f5e8c8",
-      style: { width: "1080px", height: "1440px", transform: "none" },
+      style: { width: "1600px", height: "560px", transform: "none" },
     });
     anchor = document.createElement("a");
     anchor.download = "AI吐槽大会-分享卡.png";

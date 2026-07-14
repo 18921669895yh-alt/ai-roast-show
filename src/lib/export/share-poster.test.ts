@@ -15,7 +15,7 @@ it("waits for fonts, renders a fixed clean clone, downloads, and cleans up", asy
     expect(node).not.toBe(source);
     expect(node.parentElement).toBe(document.body);
     expect(node).toHaveClass("share-poster-export-surface");
-    expect(options).toEqual(expect.objectContaining({ pixelRatio: 2, cacheBust: true, width: 1080, height: 1440 }));
+    expect(options).toEqual(expect.objectContaining({ pixelRatio: 2, cacheBust: true, width: 1600, height: 560 }));
     return "data:image/png;base64,AAAA";
   });
   const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
