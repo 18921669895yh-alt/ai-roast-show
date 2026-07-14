@@ -24,6 +24,7 @@ type RoastImagePayload = {
 // Keep the vision request small enough for mobile networks and Kimi's image endpoint.
 const MAX_AI_IMAGE_EDGE = 1024;
 const AI_IMAGE_QUALITY = 0.68;
+const MAX_AI_IMAGE_BYTES = 800_000;
 
 function fileToDataUrl(file: File, signal: AbortSignal): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -77,14 +78,14 @@ function dataUrlByteSize(dataUrl: string): number {
   return Math.floor((payload.length / 4) * 3) - padding;
 }
 
-function canvasToJpeg(canvas: HTMLCanvasElement, signal: AbortSignal): Promise<Blob> {
+function canvasToJpeg(canvas: HTMLCanvasElement, signal: AbortSignal, quality: number): Promise<Blob> {
   return new Promise((resolve, reject) => {
     if (signal.aborted) return reject(new DOMException("Aborted", "AbortError"));
     canvas.toBlob((blob) => {
       if (signal.aborted) reject(new DOMException("Aborted", "AbortError"));
       else if (blob) resolve(blob);
       else reject(new Error("image compression failed"));
-    }, "image/jpeg", AI_IMAGE_QUALITY);
+    }, "image/jpeg", quality);
   });
 }
 
@@ -100,9 +101,14 @@ async function imageToAiPayload(file: File, signal: AbortSignal): Promise<RoastI
     const context = canvas.getContext("2d");
     if (!context) throw new Error("image canvas unavailable");
     context.drawImage(bitmap, 0, 0, width, height);
-    const blob = await canvasToJpeg(canvas, signal);
-    const dataUrl = await blobToDataUrl(blob, signal);
-    return { dataUrl, mimeType: "image/jpeg", size: dataUrlByteSize(dataUrl) };
+    let last: RoastImagePayload | null = null;
+    for (const quality of [AI_IMAGE_QUALITY, 0.52, 0.38]) {
+      const blob = await canvasToJpeg(canvas, signal, quality);
+      const dataUrl = await blobToDataUrl(blob, signal);
+      last = { dataUrl, mimeType: "image/jpeg", size: dataUrlByteSize(dataUrl) };
+      if (last.size <= MAX_AI_IMAGE_BYTES) return last;
+    }
+    return last!;
   } finally {
     bitmap.close();
   }
