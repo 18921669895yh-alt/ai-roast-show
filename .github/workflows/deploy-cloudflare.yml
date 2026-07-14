@@ -33,6 +33,9 @@ jobs:
       - name: Run tests
         run: npm test -- src/lib/domain/roast.test.ts src/components/roast/TextMaterialInput.test.tsx src/lib/ai/router.test.ts src/app/api/roast/route.test.ts src/app/roast/page.test.tsx
 
+      - name: Build OpenNext worker
+        run: npx opennextjs-cloudflare build
+
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
