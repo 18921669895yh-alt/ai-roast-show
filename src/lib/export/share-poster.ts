@@ -21,6 +21,15 @@ export async function exportSharePoster(node: HTMLElement, dependencies: { toPng
     context.fillStyle = "#8e251d"; context.fillRect(0, 0, 900, 180);
     context.fillStyle = "#f0cf68"; context.fillRect(0, 1380, 900, 220);
     context.strokeStyle = "#10090f"; context.lineWidth = 6; context.strokeRect(3, 3, 894, 1594);
+    context.fillStyle = "#10090f";
+    for (let y = 220; y < 1380; y += 34) {
+      context.beginPath(); context.arc(0, y, 9, -Math.PI / 2, Math.PI / 2); context.fill();
+      context.beginPath(); context.arc(900, y, 9, Math.PI / 2, (Math.PI * 3) / 2); context.fill();
+    }
+    for (let x = 28; x < 872; x += 34) {
+      context.beginPath(); context.arc(x, 0, 9, 0, Math.PI); context.fill();
+      context.beginPath(); context.arc(x, 1600, 9, Math.PI, Math.PI * 2); context.fill();
+    }
     context.setLineDash([10, 10]); context.beginPath(); context.moveTo(0, 180); context.lineTo(900, 180); context.moveTo(0, 1380); context.lineTo(900, 1380); context.stroke(); context.setLineDash([]);
     context.fillStyle = "#fff4d7"; context.textAlign = "center"; context.font = "900 62px Arial"; context.fillText("AI吐槽大会", 450, 90);
     context.font = "900 22px Arial"; context.fillText("ROAST TICKET · COMEDY ARCHIVE · 2026", 450, 135);
