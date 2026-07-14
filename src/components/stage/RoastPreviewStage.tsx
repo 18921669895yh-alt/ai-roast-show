@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { RoastResult } from "@/lib/domain/roast";
 
 interface RoastPreviewStageProps {
@@ -6,8 +7,9 @@ interface RoastPreviewStageProps {
 }
 
 export default function RoastPreviewStage({ result, onViewFull }: RoastPreviewStageProps) {
+  const [expanded, setExpanded] = useState(false);
   return (
-    <section className="stage-result-preview" aria-labelledby="stage-preview-title" aria-live="polite">
+    <section className={`stage-result-preview${expanded ? " is-expanded" : ""}`} aria-labelledby="stage-preview-title" aria-live="polite">
       <div className="stage-preview-header">
         <span className="live-badge">AI · ON AIR</span>
         <p className="eyebrow">刚出炉的现场预览</p>
@@ -27,6 +29,9 @@ export default function RoastPreviewStage({ result, onViewFull }: RoastPreviewSt
           </li>
         ))}
       </ol>
+      <button className="button-secondary stage-preview-expand" type="button" aria-expanded={expanded} onClick={() => setExpanded((value) => !value)}>
+        {expanded ? "收起观察细节" : `展开全部观察（${result.observations.length} 条）`}
+      </button>
 
       <aside className="stage-preview-best">
         <span>今晚最好笑的一句</span>
