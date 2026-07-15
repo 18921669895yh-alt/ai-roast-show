@@ -27,6 +27,7 @@ export default function HeroSection() {
       <RetroTvFrame ariaLabel="今晚主舞台" className="hero-tv">
         <div className="hero-layout">
           <div className="hero-copy">
+            <p className="toxic-kicker">毒舌锐评 · 不给面子，但给你笑点</p>
             <p className="broadcast-label"><span>● LIVE</span> CH 01 · 今晚谁来挨说</p>
             <h1 id="hero-title">来都来了，让 AI 说你两句</h1>
             <p className="hero-subtitle">上传一张照片，或者交出你的朋友圈文案。放心，不骂人，只负责把你的细节变成段子。</p>

@@ -20,7 +20,12 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body>
         <a className="skip-link" href="#main-content">跳到主要内容</a>
         <SpotlightBackground />
-        <div className="site-shell">
+        <div className="site-shell toxic-version">
+          <div className="toxic-version-banner" role="note">
+            <span>TOXIC REVIEW MODE</span>
+            <strong>不哄、不绕，直接指出问题</strong>
+            <small>仅限虚构喜剧锐评，不攻击真实身份特征</small>
+          </div>
           <Header />
           {children}
           <Footer />

@@ -1061,3 +1061,41 @@ button, a, input, select, textarea, [role="button"] { touch-action: manipulation
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .spotlight, .stage-scanlines, .loading-wave, .round-bell, .reaction-float, .print-feed { animation: none !important; }
 }
+
+/* Toxic review edition: a separate, sharper visual skin kept on its own branch. */
+.toxic-version {
+  --color-ink: #0b0d0b;
+  --color-aubergine: #111511;
+  --color-aubergine-soft: #1b2118;
+  --color-ivory: #f0f3dc;
+  --color-ivory-muted: #aeb79b;
+  --color-signal: #d9ff3f;
+  --color-live: #ff4d35;
+  --color-violet: #879b55;
+  --color-line: rgba(217, 255, 63, 0.28);
+  background: #0b0d0b;
+}
+.toxic-version::before { display: none; }
+.toxic-version .site-header { background: rgba(11, 13, 11, .94); border-bottom-color: rgba(217,255,63,.24); }
+.toxic-version .show-logo { color: var(--color-signal); letter-spacing: -.06em; transform: none; }
+.toxic-version .show-tagline { color: var(--color-live); border-color: rgba(255,77,53,.6); }
+.toxic-version .button-primary, .toxic-version .header-cta { color: #0b0d0b; background: var(--color-signal); border-color: #efffa0; box-shadow: 4px 4px 0 var(--color-live); }
+.toxic-version .button-secondary { color: var(--color-signal); border-color: rgba(217,255,63,.6); }
+.toxic-version .button-secondary:hover { color: #0b0d0b; background: var(--color-signal); }
+.toxic-version .toxic-version-banner { display: flex; gap: 1rem; align-items: center; justify-content: center; min-height: 2rem; padding: .35rem 1rem; color: #0b0d0b; background: var(--color-signal); font-size: .78rem; font-weight: 900; letter-spacing: .04em; }
+.toxic-version-banner span { font-family: var(--font-number); letter-spacing: .12em; }
+.toxic-version-banner small { color: rgba(11,13,11,.68); font-weight: 700; }
+.toxic-version .home-hero, .toxic-version .roast-page-heading, .toxic-version .result-stage-heading { position: relative; }
+.toxic-version .home-hero::before, .toxic-version .roast-page-heading::before, .toxic-version .result-stage-heading::before { content: "NO SOFT LANDING"; display: block; margin-bottom: .8rem; color: var(--color-live); font-family: var(--font-number); font-size: .72rem; font-weight: 900; letter-spacing: .16em; }
+.toxic-version .hero-copy h1, .toxic-version .roast-page-heading h1, .toxic-version .result-stage-heading h1 { letter-spacing: -.07em; text-wrap: balance; }
+.toxic-kicker { display: inline-flex; width: fit-content; margin: 0 0 .8rem; padding: .35rem .6rem; color: #0b0d0b; background: var(--color-signal); font-family: var(--font-number); font-size: .78rem; font-weight: 900; letter-spacing: .05em; transform: rotate(-1deg); }
+.toxic-version .sample-roast, .toxic-version .material-panel, .toxic-version .ai-stage-panel, .toxic-version .print-feed { border-color: rgba(217,255,63,.34); box-shadow: 8px 8px 0 rgba(255,77,53,.72); }
+.toxic-version .live-badge { color: #0b0d0b; background: var(--color-signal); }
+.toxic-version .stage-preview-best, .toxic-version .stage-preview-opening { border-color: rgba(217,255,63,.62); background: rgba(217,255,63,.08); }
+.toxic-version .stage-preview-best span, .toxic-version .stage-preview-observations .numeric { color: var(--color-signal); }
+.toxic-version .privacy-card { border-left-color: var(--color-live); }
+.toxic-version .roast-submit { min-height: 4rem; font-size: 1.12rem; letter-spacing: .04em; }
+@media (max-width: 680px) {
+  .toxic-version .toxic-version-banner { flex-wrap: wrap; gap: .2rem .75rem; justify-content: flex-start; line-height: 1.2; }
+  .toxic-version .toxic-version-banner small { flex-basis: 100%; }
+}
