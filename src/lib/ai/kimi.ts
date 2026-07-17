@@ -2,7 +2,8 @@ import "server-only";
 import OpenAI from "openai";
 import type { Provider, ProviderComebackInput, ProviderReportInput } from "./provider";
 import { getProviderMaxTokens, ProviderError, normalizeProviderError, type ProviderOperation } from "./provider";
-import { COMEBACK_SYSTEM_PROMPT, REPORT_SYSTEM_PROMPT, ROAST_SYSTEM_PROMPT, comebackUserPrompt, reportUserPrompt, roastUserPrompt } from "./prompts";
+import { COMEBACK_SYSTEM_PROMPT, REPORT_SYSTEM_PROMPT, comebackUserPrompt, reportUserPrompt } from "./prompts";
+import { TOXIC_ROAST_SYSTEM_PROMPT, toxicRoastUserPrompt } from "./toxic-prompts";
 
 type Client = Pick<OpenAI, "chat">;
 type ClientFactory = (options: { apiKey: string; baseURL: string; timeout: number }) => Client;
@@ -43,7 +44,7 @@ export function createKimiProvider(options: KimiOptions = {}): Provider {
   }
 
   return {
-    roast(input) { return request("roast", ROAST_SYSTEM_PROMPT, roastUserPrompt(input), input.image?.dataUrl); },
+    roast(input) { return request("roast", TOXIC_ROAST_SYSTEM_PROMPT, toxicRoastUserPrompt(input), input.image?.dataUrl); },
     comeback(input: ProviderComebackInput) { return request("comeback", COMEBACK_SYSTEM_PROMPT, comebackUserPrompt(input)); },
     report(input: ProviderReportInput) { return request("report", REPORT_SYSTEM_PROMPT, reportUserPrompt(input)); },
   };
