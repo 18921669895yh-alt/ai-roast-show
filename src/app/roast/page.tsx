@@ -232,14 +232,14 @@ export default function RoastPage() {
       <header className="roast-page-heading">
         <p className="eyebrow">CH 02 · 素材审讯室</p>
         <h1>把素材放下，喜剧价值留下</h1>
-        <p>照片、朋友圈、聊天风格都可以。我们只吐槽你主动交出的细节。</p>
+        <p>把别人发的照片、朋友圈或聊天截图交上来，我们只针对内容和表达方式开喷。</p>
       </header>
 
       <div className="roast-workbench">
         <section className="material-panel" aria-labelledby="material-title">
           <div className="panel-heading">
             <span className="channel-number numeric">01</span>
-            <div><h2 id="material-title">交出今晚的素材</h2><p>至少提供照片或文字其中一项。</p></div>
+            <div><h2 id="material-title">交出那条朋友圈</h2><p>照片、文案或聊天截图，至少提供一项。</p></div>
           </div>
           <RoastUploader value={image} onChange={setImage} />
           <TextMaterialInput value={text} onChange={setText} submitted={submitted} />

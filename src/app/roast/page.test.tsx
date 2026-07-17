@@ -71,7 +71,7 @@ describe("RoastPage", () => {
     render(<RoastPage />);
     await user.type(screen.getByRole("textbox", { name: "文字素材" }), "这是我昨天发的朋友圈，看起来很装。 ");
     await user.upload(screen.getByLabelText("上传照片"), new File([new Uint8Array([0xff, 0xd8, 0xff, 0xdb])], "proof.jpg", { type: "image/jpeg" }));
-    await user.click(screen.getByRole("radio", { name: "吐槽我的朋友圈" }));
+    await user.click(screen.getByRole("radio", { name: "锐评他的朋友圈" }));
     await user.click(screen.getByRole("button", { name: "开始吐槽" }));
 
     await waitFor(() => expect(fetch).toHaveBeenCalledOnce());

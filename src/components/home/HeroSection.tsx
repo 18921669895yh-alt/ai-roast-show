@@ -30,7 +30,7 @@ export default function HeroSection() {
             <p className="toxic-kicker">毒舌锐评 · 不给面子，但给你笑点</p>
             <p className="broadcast-label"><span>● LIVE</span> CH 01 · 今晚谁来挨说</p>
             <h1 id="hero-title">来都来了，让 AI 说你两句</h1>
-            <p className="hero-subtitle">上传一张照片，或者交出你的朋友圈文案。放心，不骂人，只负责把你的细节变成段子。</p>
+            <p className="hero-subtitle">把别人那条装腔作势的朋友圈交上来。我们不骂人，只把文案里的用力过猛逐句拆开。</p>
             <div className="hero-actions">
               <Link className="button-primary" href="/roast">上传照片，开始吐槽</Link>
               <a className="button-secondary" href="#audience" onClick={focusAudience}>先看看别人怎么被吐槽</a>

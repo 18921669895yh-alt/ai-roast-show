@@ -9,7 +9,7 @@ describe("Home", () => {
     render(<Home />);
 
     expect(screen.getByRole("heading", { level: 1, name: "来都来了，让 AI 说你两句" })).toBeVisible();
-    expect(screen.getByText("上传一张照片，或者交出你的朋友圈文案。放心，不骂人，只负责把你的细节变成段子。")).toBeVisible();
+    expect(screen.getByText("把别人那条装腔作势的朋友圈交上来。我们不骂人，只把文案里的用力过猛逐句拆开。")).toBeVisible();
     expect(screen.getByRole("link", { name: "上传照片，开始吐槽" })).toHaveAttribute("href", "/roast");
     expect(screen.getByRole("link", { name: "先看看别人怎么被吐槽" })).toHaveAttribute("href", "#audience");
     expect(screen.getByText("这位朋友的穿搭很像AI生成的——每个单品都没错，组合在一起就是错了。")).toBeVisible();
