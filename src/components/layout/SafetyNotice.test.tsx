@@ -21,16 +21,16 @@ describe("SafetyNotice", () => {
     render(<Harness />);
     await user.click(screen.getByRole("button", { name: "查看原则" }));
 
-    const dialog = screen.getByRole("dialog", { name: "隐私与内容原则" });
+    const dialog = screen.getByRole("dialog", { name: "只拆内容，不定人设" });
     expect(dialog).toBeVisible();
-    expect(screen.getByText(/服务器不会存储你的照片/)).toBeVisible();
-    expect(screen.getByText(/不做心理诊断/)).toBeVisible();
-    expect(screen.getByRole("button", { name: "关闭隐私与内容原则" })).toHaveFocus();
+    expect(screen.getByText(/服务器不会存储你提交的照片/)).toBeVisible();
+    expect(screen.getByText(/不评价任何人的长相/)).toBeVisible();
+    expect(screen.getByRole("button", { name: "关闭内容原则" })).toHaveFocus();
 
     await user.tab();
     expect(screen.getByRole("button", { name: "我知道了" })).toHaveFocus();
     await user.tab();
-    expect(screen.getByRole("button", { name: "关闭隐私与内容原则" })).toHaveFocus();
+    expect(screen.getByRole("button", { name: "关闭内容原则" })).toHaveFocus();
   });
 
   it("closes on Escape and restores focus to the opener", async () => {
@@ -48,7 +48,7 @@ describe("SafetyNotice", () => {
     render(<Harness />);
     const opener = screen.getByRole("button", { name: "查看原则" });
     await user.click(opener);
-    const close = screen.getByRole("button", { name: "关闭隐私与内容原则" });
+    const close = screen.getByRole("button", { name: "关闭内容原则" });
     const confirm = screen.getByRole("button", { name: "我知道了" });
 
     await user.tab({ shift: true });
@@ -65,7 +65,7 @@ describe("SafetyNotice", () => {
     render(<Harness />);
     const opener = screen.getByRole("button", { name: "查看原则" });
     await user.click(opener);
-    const dialog = screen.getByRole("dialog", { name: "隐私与内容原则" });
+    const dialog = screen.getByRole("dialog", { name: "只拆内容，不定人设" });
 
     expect(document.body.style.overflow).toBe("hidden");
     fireEvent.mouseDown(dialog.parentElement as HTMLElement);

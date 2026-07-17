@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import AudienceReactionBar from "@/components/roast/AudienceReactionBar";
 import BestJokeCard from "@/components/roast/BestJokeCard";
 import RoastResultCard from "@/components/roast/RoastResultCard";
 import { useSequentialReveal } from "@/components/roast/useSequentialReveal";
@@ -71,10 +70,10 @@ export default function ResultPage() {
     return (
       <main id="main-content" tabIndex={-1} className="result-page result-empty">
         <span className="live-badge">OFF AIR</span>
-        <p className="eyebrow">CH 03 · 录像回放</p>
-        <h1>还没有本场录像</h1>
-        <p>舞台灯已经亮了，就差一位愿意把素材交出来的勇士。</p>
-        <Link className="button-primary" href="/roast">先上台挨两句</Link>
+        <p className="eyebrow">NO MATERIAL · 等待素材</p>
+        <h1>还没有可锐评的内容</h1>
+        <p>交出一条别人发的朋友圈、配图或聊天截图，AI 才能开始拆它的表达方式。</p>
+        <Link className="button-primary" href="/roast">去交出素材</Link>
       </main>
     );
   }
@@ -82,15 +81,15 @@ export default function ResultPage() {
   return (
     <main id="main-content" tabIndex={-1} className="result-page">
       <header className="result-stage-heading">
-        <div className="result-channel"><span className="live-badge">LIVE</span><span>CH 03 · 吐槽结果放送中</span></div>
-        <p className="eyebrow">TONIGHT&apos;S ROAST · STAGE RECORDING</p>
-        <h1>今晚的观察，句句有现场。</h1>
+        <div className="result-channel"><span className="live-badge">LIVE</span><span>POST REVIEW · 锐评已生成</span></div>
+        <p className="eyebrow">MOMENTS REVIEW · CONTENT ONLY</p>
+        <h1>这条朋友圈，已被逐句拆开。</h1>
       </header>
 
       {visibleCount >= 1 ? (
         <section className="host-opening" aria-labelledby="host-opening-title">
           <span className="host-opening-mic" aria-hidden="true">🎤</span>
-          <div><p className="eyebrow">主持人开场</p><h2 id="host-opening-title">灯光就位，先来一句</h2><blockquote>{result.opening}</blockquote></div>
+          <div><p className="eyebrow">一句话绝杀</p><h2 id="host-opening-title">先给这条内容来一句</h2><blockquote>{result.opening}</blockquote></div>
         </section>
       ) : null}
 
@@ -103,20 +102,20 @@ export default function ResultPage() {
       {visibleCount >= result.observations.length + 2 ? <BestJokeCard joke={result.bestJoke} /> : null}
       {visibleCount >= result.observations.length + 3 ? (
         <section className="reverse-compliment">
-          <p className="eyebrow">最后认真一句</p>
-          <h2>笑完了，给你找补回来</h2>
+          <p className="eyebrow">反向夸奖</p>
+          <h2>收尾再补一刀</h2>
           <p>{result.reverseCompliment}</p>
         </section>
       ) : null}
 
       {visibleCount >= totalActs ? (
         <>
-          <AudienceReactionBar battleSeed={result.bestJoke} />
           <nav className="result-actions" aria-label="结果下一步">
-            <Link className="button-primary" href="/report">领取吐槽报告</Link>
-            <Link className="button-secondary" href="/roast">再吐槽一次</Link>
+            <Link className="button-primary" href="/report?share=1">生成分享卡</Link>
+            <Link className="button-secondary" href="/report">查看锐评档案</Link>
+            <Link className="button-secondary" href="/roast">再锐评一条</Link>
           </nav>
-          <p className="fictional-disclaimer">现场掌声与舞台热度均为娱乐性虚构数据，不代表真实评价。</p>
+          <p className="fictional-disclaimer">标签与分数均为娱乐性虚构数据，只评价这条提交内容，不代表对任何人的真实评价。</p>
         </>
       ) : null}
 

@@ -4,39 +4,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { focusHashTarget } from "./hashNavigation";
-import { focusableSelector, isolateBackground } from "./SafetyNotice";
-import { EASTER_EGG_COPY } from "@/lib/domain/easter-eggs";
 
 const navigation = [
   { label: "首页", href: "/" },
-  { label: "开始吐槽", href: "/roast" },
-  { label: "吐槽报告", href: "/report" },
-  { label: "即兴对决", href: "/battle" },
-  { label: "关于节目", href: "/#about" },
+  { label: "开始锐评", href: "/roast" },
+  { label: "锐评档案", href: "/report" },
+  { label: "关于锐评", href: "/#about" },
 ];
 
 type HeaderViewProps = {
   currentPath: string;
-  onLogoFiveClicks?: () => void;
-  onHomeNavigate?: (href: string) => void;
 };
 
-export function HeaderView({ currentPath, onLogoFiveClicks, onHomeNavigate }: HeaderViewProps) {
+export function HeaderView({ currentPath }: HeaderViewProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selfRoastOpen, setSelfRoastOpen] = useState(false);
-  const logoClicks = useRef(0);
-  const logoLink = useRef<HTMLAnchorElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
-  const selfRoastBackdrop = useRef<HTMLDivElement>(null);
-  const selfRoastDialog = useRef<HTMLElement>(null);
-  const selfRoastClose = useRef<HTMLButtonElement>(null);
-  const selfRoastOpener = useRef<HTMLElement | null>(null);
-  const logoTimer = useRef<number | null>(null);
-  const allowLogoNavigation = useRef(false);
-
-  useEffect(() => () => {
-    if (logoTimer.current !== null) window.clearTimeout(logoTimer.current);
-  }, []);
 
   const closeMenu = useCallback((restoreFocus: boolean) => {
     setMenuOpen(false);
@@ -57,87 +39,6 @@ export function HeaderView({ currentPath, onLogoFiveClicks, onHomeNavigate }: He
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [closeMenu, menuOpen]);
 
-  const closeSelfRoast = useCallback(() => {
-    setSelfRoastOpen(false);
-  }, []);
-
-  useEffect(() => {
-    if (!selfRoastOpen || !selfRoastBackdrop.current) return;
-    const previousOverflow = document.body.style.overflow;
-    const restoreBackground = isolateBackground(selfRoastBackdrop.current);
-    document.body.style.overflow = "hidden";
-    selfRoastClose.current?.focus();
-    const keepFocusInside = (event: FocusEvent) => {
-      if (selfRoastDialog.current && !selfRoastDialog.current.contains(event.target as Node)) {
-        selfRoastClose.current?.focus();
-      }
-    };
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        closeSelfRoast();
-        return;
-      }
-      if (event.key !== "Tab" || !selfRoastDialog.current) return;
-      const focusable = Array.from(selfRoastDialog.current.querySelectorAll<HTMLElement>(focusableSelector));
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (!first || !last) return;
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-    document.addEventListener("focusin", keepFocusInside);
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("focusin", keepFocusInside);
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = previousOverflow;
-      restoreBackground();
-      selfRoastOpener.current?.focus();
-      selfRoastOpener.current = null;
-    };
-  }, [closeSelfRoast, selfRoastOpen]);
-
-  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (allowLogoNavigation.current) {
-      allowLogoNavigation.current = false;
-      logoClicks.current = 0;
-      return;
-    }
-    logoClicks.current += 1;
-    if (logoClicks.current < 5) {
-      event.preventDefault();
-      if (logoTimer.current === null) {
-        logoTimer.current = window.setTimeout(() => {
-          logoTimer.current = null;
-          logoClicks.current = 0;
-          if (currentPath !== "/") {
-            if (onHomeNavigate) onHomeNavigate("/");
-            else {
-              allowLogoNavigation.current = true;
-              logoLink.current?.click();
-            }
-          }
-        }, 1_000);
-      }
-      return;
-    }
-    event.preventDefault();
-    if (logoTimer.current !== null) window.clearTimeout(logoTimer.current);
-    logoTimer.current = null;
-    logoClicks.current = 0;
-    if (onLogoFiveClicks) onLogoFiveClicks();
-    else {
-      selfRoastOpener.current = event.currentTarget;
-      setSelfRoastOpen(true);
-    }
-  };
-
   const handleNavigationClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     const focusedTarget = focusHashTarget(event, href);
     if (menuOpen) closeMenu(!focusedTarget);
@@ -147,11 +48,11 @@ export function HeaderView({ currentPath, onLogoFiveClicks, onHomeNavigate }: He
     <header className="site-header">
       <div className="header-inner">
         <div className="brand-lockup">
-          <Link ref={logoLink} className="show-logo" href="/" aria-label="AI吐槽大会" onClick={handleLogoClick}>
+          <Link className="show-logo" href="/" aria-label="AI吐槽大会">
             <span aria-hidden="true" className="logo-spark">✦</span>
             AI吐槽大会
           </Link>
-          <span className="show-tagline">本节目可能造成轻微嘴硬</span>
+          <span className="show-tagline">专拆朋友圈里的用力过猛</span>
         </div>
         <button
           ref={menuButton}
@@ -170,7 +71,7 @@ export function HeaderView({ currentPath, onLogoFiveClicks, onHomeNavigate }: He
           aria-label="主导航"
         >
           <ul>
-            {navigation.filter((item) => item.href !== "/battle").map((item) => {
+            {navigation.map((item) => {
               const itemPath = item.href.split("#")[0] || "/";
               const isCurrent = !item.href.includes("#") && currentPath === itemPath;
               return (
@@ -188,30 +89,10 @@ export function HeaderView({ currentPath, onLogoFiveClicks, onHomeNavigate }: He
             aria-current={currentPath === "/roast" ? "page" : undefined}
             onClick={(event) => handleNavigationClick(event, "/roast")}
           >
-            上台挨两句
+            交出朋友圈
           </Link>
         </nav>
       </div>
-      {selfRoastOpen ? (
-        <div ref={selfRoastBackdrop} className="dialog-backdrop" role="presentation" onMouseDown={(event) => {
-          if (event.target === event.currentTarget) closeSelfRoast();
-        }}>
-          <section ref={selfRoastDialog} className="self-roast-dialog" role="dialog" aria-modal="true" aria-labelledby="self-roast-title">
-            <span className="eyebrow">{EASTER_EGG_COPY.selfRoastEyebrow}</span>
-            <h2 id="self-roast-title">{EASTER_EGG_COPY.selfRoastTitle}</h2>
-            <p>{EASTER_EGG_COPY.selfRoastBody}</p>
-            <button
-              ref={selfRoastClose}
-              className="dialog-close"
-              type="button"
-              aria-label={EASTER_EGG_COPY.selfRoastCloseLabel}
-              onClick={closeSelfRoast}
-            >
-              ×
-            </button>
-          </section>
-        </div>
-      ) : null}
     </header>
   );
 }

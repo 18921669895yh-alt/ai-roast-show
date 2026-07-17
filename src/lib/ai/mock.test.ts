@@ -16,5 +16,5 @@ it("returns deterministic schema-valid safe Chinese results", async () => {
   expect(report.fictionalDisclaimer).toContain("虚构");
   expect(report).toEqual(reportResultSchema.parse(await mockProvider.report({ roast: "其他任意输入" })));
   report.comedyTags[0] = "被修改";
-  expect(reportResultSchema.parse(await mockProvider.report({ roast: null })).comedyTags[0]).toBe("气氛担当");
+  expect(reportResultSchema.parse(await mockProvider.report({ roast: null })).comedyTags[0]).toBe("强行高级");
 });

@@ -1,4 +1,4 @@
-import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import ResultPage from "./page";
@@ -81,7 +81,7 @@ describe("result page recovery", () => {
       expect(screen.getByText(observation.body)).toBeInTheDocument();
       expect(screen.getByText(observation.tag)).toBeInTheDocument();
     }
-    expect(screen.getByRole("heading", { name: "今晚最好笑的一句" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "这条内容最该挨的一句" })).toBeInTheDocument();
     expect(screen.getByText(result.bestJoke)).toBeInTheDocument();
     expect(screen.getAllByText(result.reverseCompliment)).toHaveLength(2);
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
@@ -90,8 +90,8 @@ describe("result page recovery", () => {
   it("shows the themed empty state when no result exists", async () => {
     render(<ResultPage />);
 
-    expect(await screen.findByRole("heading", { name: "还没有本场录像" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "先上台挨两句" })).toHaveAttribute("href", "/roast");
+    expect(await screen.findByRole("heading", { name: "还没有可锐评的内容" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "去交出素材" })).toHaveAttribute("href", "/roast");
     expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
     expect(screen.getByRole("main")).toHaveAttribute("tabindex", "-1");
   });
@@ -104,7 +104,7 @@ describe("result page recovery", () => {
     localStorage.setItem(AI_ROAST_STORAGE_KEY, stored);
     render(<ResultPage />);
 
-    expect(await screen.findByText("还没有本场录像")).toBeInTheDocument();
+    expect(await screen.findByText("还没有可锐评的内容")).toBeInTheDocument();
     expect(localStorage.getItem(AI_ROAST_STORAGE_KEY)).toBeNull();
   });
 
@@ -160,35 +160,14 @@ describe("result page recovery", () => {
     expect(screen.getByText(result.bestJoke)).toBeInTheDocument();
   });
 
-  it("provides active share, battle, report and retry destinations", async () => {
+  it("provides share, archive and retry destinations without the legacy battle flow", async () => {
     saveLatestRoast(result);
     render(<ResultPage />);
     await screen.findByText(result.opening);
 
-    expect(screen.getByRole("link", { name: "保存为分享卡片" })).toHaveAttribute("href", "/report?share=1");
-    expect(screen.getAllByRole("link", { name: /不服/ })[0]).toHaveAttribute("href", "/battle");
-    expect(screen.getByRole("link", { name: "申请反击" })).toHaveAttribute("href", "/battle");
-    expect(screen.getByRole("link", { name: "领取吐槽报告" })).toHaveAttribute("href", "/report");
-    expect(screen.getByRole("link", { name: "再吐槽一次" })).toHaveAttribute("href", "/roast");
-  });
-
-  it("keeps ordinary reactions local and writes only bounded battle seed for battle actions", async () => {
-    saveLatestRoast(result);
-    const setItem = vi.spyOn(Storage.prototype, "setItem");
-    render(<ResultPage />);
-    await screen.findByText(result.opening);
-
-    for (const label of [/哈哈哈/, /有点准/, /太损了/]) screen.getByRole("button", { name: label }).click();
-    await waitFor(() => expect(setItem).not.toHaveBeenCalled());
-
-    const protest = screen.getByRole("link", { name: /不服/ });
-    protest.click();
-    protest.click();
-    screen.getByRole("link", { name: "申请反击" }).click();
-    expect(setItem).toHaveBeenCalledTimes(2);
-    for (const [, payload] of setItem.mock.calls) {
-      expect(payload).toBe(JSON.stringify({ version: 1, bestJoke: result.bestJoke }));
-      expect(payload).not.toMatch(/image|data:image|material|raw/i);
-    }
+    expect(screen.getAllByRole("link", { name: "生成分享卡" }).at(-1)).toHaveAttribute("href", "/report?share=1");
+    expect(screen.getByRole("link", { name: "查看锐评档案" })).toHaveAttribute("href", "/report");
+    expect(screen.getByRole("link", { name: "再锐评一条" })).toHaveAttribute("href", "/roast");
+    expect(screen.queryByRole("link", { name: /不服|反击|复仇/ })).not.toBeInTheDocument();
   });
 });

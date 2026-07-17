@@ -3,17 +3,17 @@ import type { RoastResult } from "@/lib/domain/roast";
 
 export function safeRoastFallback(): RoastResult {
   return {
-    opening: "今晚轻轻开麦，只聊你主动分享的小习惯。",
+    opening: "这条朋友圈把普通日常剪出了年度预告片的劲头。",
     observations: [
-      { title: "细节登场", body: "你的素材很会把重点留到最后一秒。", tag: "精准收尾" },
-      { title: "气氛在线", body: "一句普通开场，也被你说出了节目预告感。", tag: "舞台感" },
-      { title: "稳妥发挥", body: "认真里带点轻松，是很耐看的表达方式。", tag: "轻松表达" },
+      { title: "滤镜开太大", body: "普通场景被写得像品牌纪录片，连空气都得配旁白。", tag: "强行高级" },
+      { title: "文案太满", body: "一句能说完的事，硬塞进了三层人生感悟。", tag: "用力过猛" },
+      { title: "日常变史诗", body: "它不是没有内容，是每个细节都想抢主角。", tag: "自我感动" },
     ],
-    bestJoke: "你的随便不是没有答案，是答案还在候场。",
-    reverseCompliment: "认真说，你愿意分享自己，也很会观察细节。",
-    comedyTags: ["气氛担当", "细节雷达", "精准收尾"],
+    bestJoke: "这条朋友圈最大的松弛感，是它完全不知道自己已经在用力。",
+    reverseCompliment: "至少它的自信很完整，完整到细节都插不进话。",
+    comedyTags: ["强行高级", "文案太满", "日常史诗"],
     metrics: { atmosphere: 82, stubbornness: 61, casualCredibility: 35 },
-    award: { title: "年度轻松表达奖", citation: "颁给愿意用幽默记录日常的你。" },
+    award: { title: "年度日常史诗奖", citation: "颁给能把普通瞬间写成预告片的这条内容。" },
     safetyMode: "gentle",
   };
 }
@@ -24,10 +24,10 @@ export function safeComebackFallback(): ComebackResult {
 
 export function safeReportFallback(): ReportResult {
   return {
-    comedyTags: ["气氛担当", "细节雷达", "精准收尾"],
+    comedyTags: ["强行高级", "文案太满", "日常史诗"],
     metrics: { atmosphere: 82, stubbornness: 61, casualCredibility: 35 },
-    award: { title: "年度轻松表达奖", citation: "颁给愿意用幽默记录日常的你。" },
-    bestJoke: "你的随便不是没有答案，是答案还在候场。",
+    award: { title: "年度日常史诗奖", citation: "颁给能把普通瞬间写成预告片的这条内容。" },
+    bestJoke: "这条朋友圈最大的松弛感，是它完全不知道自己已经在用力。",
     fictionalDisclaimer: "以下标签、奖项与指标均为喜剧化虚构，不是真实心理或能力测量。",
   };
 }

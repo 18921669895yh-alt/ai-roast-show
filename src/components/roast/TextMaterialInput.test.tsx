@@ -12,7 +12,7 @@ describe("TextMaterialInput", () => {
       return <TextMaterialInput value={value} onChange={setValue} />;
     }
     render(<Harness />);
-    const textarea = screen.getByPlaceholderText("例如：这是我昨天发的朋友圈，朋友说看起来很装……");
+    const textarea = screen.getByPlaceholderText("例如：他发了一条朋友圈，文案像在给普通午饭写获奖感言……");
     await user.type(textarea, "太装了");
     expect(screen.getByText("3 / 500")).toBeVisible();
     expect(screen.queryByText("你提供的信息少得像工作群里的有效沟通。")).not.toBeInTheDocument();

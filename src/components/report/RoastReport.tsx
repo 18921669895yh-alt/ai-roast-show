@@ -9,33 +9,33 @@ export default function RoastReport({ report }: { report: RoastResult }) {
   return (
     <article className="roast-report print-feed">
       <header className="report-heading">
-        <p className="eyebrow">CH 05 · COMEDY ARCHIVE</p>
-        <h1>AI吐槽大会：关于你的非正式喜剧观察报告</h1>
-        <p>一份只依据本场现有素材整理的非正式节目单，不作性格判断或心理诊断。</p>
+        <p className="eyebrow">POST REVIEW · ARCHIVE</p>
+        <h1>AI吐槽大会：这条朋友圈的锐评档案</h1>
+        <p>只依据本次提交的内容整理，不对发布者做人格、生活或心理判断。</p>
       </header>
 
       <section className="report-section" aria-labelledby="persona-title">
-        <p className="report-section-number">01</p><h2 id="persona-title">喜剧人格标签</h2>
+        <p className="report-section-number">01</p><h2 id="persona-title">内容锐评标签</h2>
         <ul className="report-tag-list">{report.comedyTags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
       </section>
 
       <section className="report-section feature-section" aria-labelledby="feature-title">
-        <p className="report-section-number">02</p><h2 id="feature-title">最有趣特征</h2>
+        <p className="report-section-number">02</p><h2 id="feature-title">最该拆的细节</h2>
         <div className="feature-grid">
-          <div><span>特征名称</span><strong>{feature.title}</strong></div>
-          <div><span>已有观察证据</span><p>{feature.body}</p></div>
-          <div><span>喜剧价值</span><p>{feature.tag} · {report.metrics.atmosphere}/100 的现场气氛贡献</p></div>
-          <div><span>AI点评</span><p>这条笑点来自本场已记录的表达细节，适合做舞台包袱，不代表任何心理结论。</p></div>
+          <div><span>锐评切口</span><strong>{feature.title}</strong></div>
+          <div><span>内容证据</span><p>{feature.body}</p></div>
+          <div><span>装感浓度</span><p>{feature.tag} · {report.metrics.atmosphere}/100 的内容表现值</p></div>
+          <div><span>锐评说明</span><p>这条结论只来自本次提交的表达细节，不代表对发布者任何现实层面的判断。</p></div>
         </div>
       </section>
 
       <section className="report-section metrics-panel" aria-labelledby="metrics-title">
-        <p className="report-section-number">03</p><h2 id="metrics-title">虚拟数据面板</h2>
+        <p className="report-section-number">03</p><h2 id="metrics-title">锐评数据面板</h2>
         <p className="metrics-disclaimer">{DISCLAIMER}</p>
         <div className="metric-grid">
-          <ComedyMetricCard label="现场气氛值" value={report.metrics.atmosphere} caption="今晚的笑声供电量" />
-          <ComedyMetricCard label="嘴硬指数" value={report.metrics.stubbornness} caption="立场稳定，梗也稳定" />
-          <ComedyMetricCard label="随便可信度" value={report.metrics.casualCredibility} caption="说随便时的节目效果" />
+          <ComedyMetricCard label="装感浓度" value={report.metrics.atmosphere} caption="内容包装的用力程度" />
+          <ComedyMetricCard label="人设用力值" value={report.metrics.stubbornness} caption="表达里藏不住的执着" />
+          <ComedyMetricCard label="随便可信度" value={report.metrics.casualCredibility} caption="“随便发发”这句话的可信程度" />
         </div>
       </section>
 

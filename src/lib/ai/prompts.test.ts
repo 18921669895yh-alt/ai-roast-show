@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { comebackUserPrompt, REPORT_SYSTEM_PROMPT, reportUserPrompt } from "./prompts";
+import { TOXIC_ROAST_SYSTEM_PROMPT, toxicRoastUserPrompt } from "./toxic-prompts";
 import { ROAST_TEXT_LIMITS } from "@/lib/domain/roast";
 
 it("explicitly instructs gentle comeback behavior", () => {
@@ -50,5 +51,16 @@ describe("report prompt contract", () => {
 
   it("encodes an absent report value deterministically as JSON null", () => {
     expect(reportUserPrompt({ roast: undefined })).toContain("USER_MATERIAL_JSON_UTF16_LENGTH=4\nnull");
+  });
+});
+
+describe("toxic roast intensity contract", () => {
+  it("defines non-repeating output requirements and distinct fire levels", () => {
+    expect(TOXIC_ROAST_SYSTEM_PROMPT).toContain("不要复用同一比喻、句式、标签");
+    expect(TOXIC_ROAST_SYSTEM_PROMPT).toContain("前三条短评必须分别攻击不同角度");
+    expect(toxicRoastUserPrompt({ level: "gentle", mode: "moments", safetyMode: "standard" })).toContain("只点出一个最明显的问题");
+    expect(toxicRoastUserPrompt({ level: "familiar", mode: "moments", safetyMode: "standard" })).toContain("至少两个不同角度");
+    expect(toxicRoastUserPrompt({ level: "stage", mode: "moments", safetyMode: "standard" })).toContain("至少三个不同维度");
+    expect(toxicRoastUserPrompt({ level: "extreme", mode: "moments", safetyMode: "standard" })).toContain("虚构喜剧式极限火力");
   });
 });

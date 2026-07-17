@@ -257,7 +257,7 @@ export default function RoastPage() {
           </aside>
           {formError ? <p className="form-error" role="alert">{formError}</p> : null}
           <button className="button-primary roast-submit" type="button" disabled={requestState === "loading"} onClick={submit}>
-            {requestState === "error" ? "重新开麦" : "开始吐槽"}
+            {requestState === "error" ? "重新锐评" : "开始锐评"}
           </button>
         </section>
 
@@ -276,8 +276,8 @@ export default function RoastPage() {
             <div className="host-idle-stage">
               <span className="live-badge">HOST · READY</span>
               <div className="host-mic" aria-hidden="true">🎙</div>
-              <blockquote>下一位观众，请不要紧张。我们只是研究一下，你为什么这么有喜剧价值。</blockquote>
-              <p>素材一到，主持人马上开麦。</p>
+              <blockquote>把那条朋友圈交出来。我们只研究它为什么普通，却非要把自己剪成预告片。</blockquote>
+              <p>素材一到，AI 就开始拆文案。</p>
             </div>
           )}
           {degraded ? <p className="degraded-notice" role="status">现场信号不稳，已切换安全演示内容。</p> : null}

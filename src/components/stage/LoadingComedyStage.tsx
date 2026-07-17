@@ -24,7 +24,7 @@ export default function LoadingComedyStage({ onCancel, phase = "writing" }: { on
   return (
     <section className="loading-comedy-stage" aria-labelledby="loading-title">
       <span className="live-badge">AI LIVE</span>
-      <h2 id="loading-title">主持人正在备稿</h2>
+      <h2 id="loading-title">AI 正在拆文案</h2>
       <div className="loading-wave" aria-hidden="true">▂ ▅ ▃ ▇ ▄ ▆ ▂</div>
       <p className="loading-phase">{phase === "preparing" ? "图片准备中 · 正在压缩以减少等待" : phase === "analyzing" ? "图片已上传 · Kimi 正在识别画面" : "识别完成 · 正在生成吐槽文字"}</p>
       <p role="status" aria-live="polite" aria-atomic="true">{LOADING_MESSAGES[index]}</p>

@@ -52,8 +52,8 @@ afterEach(() => {
 describe("report page", () => {
   it("shows an accessible empty state with the roast CTA", async () => {
     render(<ReportPage />);
-    expect(await screen.findByRole("heading", { name: "还没有可打印的吐槽档案" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "先去吐槽一次" })).toHaveAttribute("href", "/roast");
+    expect(await screen.findByRole("heading", { name: "还没有可打印的锐评档案" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "去交出素材" })).toHaveAttribute("href", "/roast");
     expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
     expect(screen.getByRole("main")).toHaveAttribute("tabindex", "-1");
   });
@@ -64,14 +64,14 @@ describe("report page", () => {
     saveLatestRoast(result);
     render(<ReportPage />);
 
-    expect(await screen.findByRole("heading", { name: "AI吐槽大会：关于你的非正式喜剧观察报告" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "喜剧人格标签" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "AI吐槽大会：这条朋友圈的锐评档案" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "内容锐评标签" })).toBeInTheDocument();
     for (const tag of result.comedyTags) expect(screen.getByText(tag)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "最有趣特征" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "最该拆的细节" })).toBeInTheDocument();
     expect(screen.getByText(result.observations[0].title)).toBeInTheDocument();
     expect(screen.getByText(result.observations[0].body)).toBeInTheDocument();
     expect(screen.getByText("以下数据均为喜剧化虚构，不是真实心理测量。")).toBeInTheDocument();
-    expect(screen.getByRole("meter", { name: "现场气氛值" })).toHaveAttribute("value", "88");
+    expect(screen.getByRole("meter", { name: "装感浓度" })).toHaveAttribute("value", "88");
     expect(screen.getByRole("heading", { name: "年度喜剧奖项" })).toBeInTheDocument();
     expect(screen.getByText(result.award.title)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "本场最佳金句" })).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe("report page", () => {
     render(<ReportPage />);
 
     expect(await screen.findByText(result.bestJoke)).toBeInTheDocument();
-    expect(await screen.findByRole("status")).toHaveTextContent("报告精修暂时离线，当前展示本地喜剧档案。");
+    expect(await screen.findByRole("status")).toHaveTextContent("锐评档案精修暂时离线，当前展示本地内容档案。");
     expect(screen.queryByText(/secret raw error/)).not.toBeInTheDocument();
   });
 
@@ -147,8 +147,8 @@ describe("report page", () => {
     render(<ReportPage />);
     expect(await screen.findByRole("button", { name: "生成分享卡" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "复制最佳金句" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "再吐槽一次" })).toHaveAttribute("href", "/roast");
-    expect(screen.getByRole("link", { name: "发起复仇赛" })).toHaveAttribute("href", "/battle");
+    expect(screen.getByRole("link", { name: "再锐评一条" })).toHaveAttribute("href", "/roast");
+    expect(screen.queryByRole("link", { name: /复仇|对决|反击/ })).not.toBeInTheDocument();
   });
 
   it("closes the modal with Escape or backdrop and restores focus", async () => {

@@ -135,25 +135,25 @@ export default function SafetyNotice({ open, onClose }: SafetyNoticeProps) {
           ref={closeButtonRef}
           className="dialog-close"
           type="button"
-          aria-label="关闭隐私与内容原则"
+          aria-label="关闭内容原则"
           onClick={requestClose}
         >
           ×
         </button>
-        <span className="eyebrow">节目须知 · ON AIR</span>
-        <h2 id="safety-notice-title">隐私与内容原则</h2>
+        <span className="eyebrow">内容原则 · CONTENT ONLY</span>
+        <h2 id="safety-notice-title">只拆内容，不定人设</h2>
         <div className="safety-copy">
           <section>
-            <h3>照片只为这一场节目服务</h3>
-            <p>服务器不会存储你的照片。照片只在你点击生成后临时用于本次请求，不写入磁盘、数据库、日志或浏览器本地记录。</p>
+            <h3>素材仅用于这一次锐评</h3>
+            <p>服务器不会存储你提交的照片。照片只在你点击生成后临时用于本次请求，不写入磁盘、数据库、日志或浏览器本地记录。</p>
           </section>
           <section>
-            <h3>吐槽有边界</h3>
-            <p>我们只观察你主动提供的表达、穿搭与小习惯；不做心理诊断，不羞辱身体特征，也不攻击敏感身份、疾病或未成年人。</p>
+            <h3>锐评只对内容开火</h3>
+            <p>我们只拆你主动提交的朋友圈文案、配图和表达方式；不评价任何人的长相、身体、身份、家庭、疾病或现实处境。</p>
           </section>
           <section>
-            <h3>不舒服就立刻停麦</h3>
-            <p>检测到明显低落或自我否定时，节目会自动切换为温和模式。所有评分与标签都是喜剧化虚构，不是真实测量。</p>
+            <h3>真实痛苦，不拿来开火</h3>
+            <p>遇到丧亲、疾病、灾难或心理危机等内容，系统会自动收束语气。所有标签与浓度均为喜剧化虚构，不是真实测量。</p>
           </section>
         </div>
         <button className="button button-primary dialog-confirm" type="button" onClick={requestClose}>

@@ -12,8 +12,8 @@ export default function RoastPreviewStage({ result, onViewFull }: RoastPreviewSt
     <section className={`stage-result-preview${expanded ? " is-expanded" : ""}`} aria-labelledby="stage-preview-title" aria-live="polite">
       <div className="stage-preview-header">
         <span className="live-badge">AI · ON AIR</span>
-        <p className="eyebrow">刚出炉的现场预览</p>
-        <h2 id="stage-preview-title">右侧先听这几句</h2>
+        <p className="eyebrow">刚出炉的内容锐评</p>
+        <h2 id="stage-preview-title">锐评先看这几句</h2>
       </div>
 
       <blockquote className="stage-preview-opening">{result.opening}</blockquote>
@@ -34,12 +34,12 @@ export default function RoastPreviewStage({ result, onViewFull }: RoastPreviewSt
       </button>
 
       <aside className="stage-preview-best">
-        <span>今晚最好笑的一句</span>
+        <span>这条内容最该挨的一句</span>
         <strong>{result.bestJoke}</strong>
       </aside>
 
-      <button className="button-primary" type="button" onClick={onViewFull}>查看完整吐槽</button>
-      <p className="stage-preview-note">完整页还有反向夸奖、观众反应和吐槽报告。</p>
+      <button className="button-primary" type="button" onClick={onViewFull}>查看完整锐评</button>
+      <p className="stage-preview-note">完整页会生成三段式锐评、反向夸奖和可分享的内容档案。</p>
     </section>
   );
 }

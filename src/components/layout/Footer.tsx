@@ -15,13 +15,13 @@ export default function Footer() {
         <div className="footer-inner">
           <div>
             <Link className="footer-logo" href="/">AI吐槽大会</Link>
-            <p>本节目不提供心理诊断，只提供轻微嘴硬。</p>
+            <p>只锐评提交的内容，不评价任何人的现实身份。</p>
           </div>
           <nav className="footer-navigation" aria-label="页脚导航">
             <button type="button" onClick={openNotice}>内容原则</button>
             <Link href="/#privacy" onClick={(event) => focusHashTarget(event, "/#privacy")}>隐私说明</Link>
             <a href="mailto:feedback@airoast.local">意见反馈</a>
-            <Link href="/#about" onClick={(event) => focusHashTarget(event, "/#about")}>AI也要挨骂</Link>
+            <Link href="/#about" onClick={(event) => focusHashTarget(event, "/#about")}>关于锐评</Link>
           </nav>
         </div>
       </footer>

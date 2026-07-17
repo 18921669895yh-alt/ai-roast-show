@@ -25,30 +25,30 @@ const toxicLevelCopy: Record<RoastLevel, { title: string; description: string }>
 };
 
 export default function RoastLevelSelector({ value, onChange }: RoastLevelSelectorProps) {
-  const [confirmStage, setConfirmStage] = useState(false);
+  const [confirmExtreme, setConfirmExtreme] = useState(false);
   const confirmBackdrop = useRef<HTMLDivElement>(null);
   const confirmDialog = useRef<HTMLElement>(null);
   const cancelButton = useRef<HTMLButtonElement>(null);
   const confirmButton = useRef<HTMLButtonElement>(null);
-  const stageRadio = useRef<HTMLInputElement>(null);
+  const extremeRadio = useRef<HTMLInputElement>(null);
 
-  const restoreStageFocus = useCallback(() => {
-    requestAnimationFrame(() => stageRadio.current?.focus());
+  const restoreExtremeFocus = useCallback(() => {
+    requestAnimationFrame(() => extremeRadio.current?.focus());
   }, []);
 
   const closeConfirmation = useCallback(() => {
-    setConfirmStage(false);
-    restoreStageFocus();
-  }, [restoreStageFocus]);
+    setConfirmExtreme(false);
+    restoreExtremeFocus();
+  }, [restoreExtremeFocus]);
 
-  const confirmStageLevel = () => {
-    setConfirmStage(false);
-    onChange("stage");
-    restoreStageFocus();
+  const confirmExtremeLevel = () => {
+    setConfirmExtreme(false);
+    onChange("extreme");
+    restoreExtremeFocus();
   };
 
   useEffect(() => {
-    if (!confirmStage || !confirmBackdrop.current) return;
+    if (!confirmExtreme || !confirmBackdrop.current) return;
     const previousOverflow = document.body.style.overflow;
     const restoreBackground = isolateBackground(confirmBackdrop.current);
     document.body.style.overflow = "hidden";
@@ -85,7 +85,7 @@ export default function RoastLevelSelector({ value, onChange }: RoastLevelSelect
       document.body.style.overflow = previousOverflow;
       restoreBackground();
     };
-  }, [closeConfirmation, confirmStage]);
+  }, [closeConfirmation, confirmExtreme]);
 
   return (
     <>
@@ -94,12 +94,12 @@ export default function RoastLevelSelector({ value, onChange }: RoastLevelSelect
         {levels.map((level) => (
           <label className={`level-card${value === level.value ? " is-selected" : ""}`} key={level.value}>
             <input
-              ref={level.value === "stage" ? stageRadio : undefined}
+              ref={level.value === "extreme" ? extremeRadio : undefined}
               type="radio"
               name="roast-level"
               value={level.value}
               checked={value === level.value}
-              onChange={() => level.value === "stage" ? setConfirmStage(true) : level.value === "extreme" ? (window.confirm("极其恶毒档位只用于虚构喜剧吐槽。确认启用吗？") && onChange(level.value)) : onChange(level.value)}
+              onChange={() => level.value === "extreme" ? setConfirmExtreme(true) : onChange(level.value)}
             />
             <span className="level-score numeric" aria-hidden="true">{level.score}</span>
             <span className="level-card-copy"><strong>{toxicLevelCopy[level.value].title}</strong><small>{toxicLevelCopy[level.value].description}</small></span>
@@ -107,15 +107,16 @@ export default function RoastLevelSelector({ value, onChange }: RoastLevelSelect
           </label>
         ))}
       </fieldset>
-      {confirmStage ? (
+      {confirmExtreme ? (
         <div ref={confirmBackdrop} className="dialog-backdrop" role="presentation">
           <section ref={confirmDialog} className="level-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="level-confirm-title">
-            <span className="eyebrow">浓度警告 · 90%</span>
-            <h2 id="level-confirm-title">确认开启爆辣锐评</h2>
-            <p>确认开启？你的嘴硬技能可能会自动激活。</p>
+            <span className="eyebrow">EXTREME MODE · 100%</span>
+            <h2 id="level-confirm-title">确认开启极其恶毒</h2>
+            <p>这一档会把朋友圈里的用力过猛逐句拆开。确认后火力将调到 100%。</p>
+            <p className="level-confirm-warning">只针对你提交的内容开火，不攻击外貌、身份、家庭或现实处境。</p>
             <div className="dialog-actions">
-              <button ref={cancelButton} className="button-secondary" type="button" onClick={closeConfirmation}>取消</button>
-              <button ref={confirmButton} className="button-primary" type="button" onClick={confirmStageLevel}>确认开启</button>
+              <button ref={cancelButton} className="button-secondary" type="button" onClick={closeConfirmation}>算了，收点火</button>
+              <button ref={confirmButton} className="button-primary" type="button" onClick={confirmExtremeLevel}>确认，放大火力</button>
             </div>
           </section>
         </div>

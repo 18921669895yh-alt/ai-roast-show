@@ -47,10 +47,10 @@ export default function ReportPage() {
         const response = await postJson<ReportResult>("/api/report", { roast: latest }, { signal: abortController.signal });
         if (!alive.current || abortController.signal.aborted) return;
         setReport(mergeReport(latest, response.data));
-        if (response.meta.degraded) setNotice("报告精修暂时离线，当前展示安全的本地喜剧档案。");
+        if (response.meta.degraded) setNotice("锐评档案精修暂时离线，当前展示本地内容档案。");
       } catch (error) {
         if (!alive.current || abortController.signal.aborted || (error instanceof DOMException && error.name === "AbortError")) return;
-        setNotice("报告精修暂时离线，当前展示本地喜剧档案。");
+        setNotice("锐评档案精修暂时离线，当前展示本地内容档案。");
       }
     });
     return () => {
@@ -74,10 +74,10 @@ export default function ReportPage() {
   if (!report || !seed) return (
     <main id="main-content" tabIndex={-1} className="report-page result-empty">
       <span className="live-badge">NO RECORD</span>
-      <p className="eyebrow">CH 05 · 喜剧档案室</p>
-      <h1>还没有可打印的吐槽档案</h1>
-      <p>先完成一场吐槽，打印机才知道该把哪段笑声装订起来。</p>
-      <Link className="button-primary" href="/roast">先去吐槽一次</Link>
+        <p className="eyebrow">POST ARCHIVE · 等待内容</p>
+        <h1>还没有可打印的锐评档案</h1>
+        <p>先锐评一条别人发的内容，才能把这份档案整理出来。</p>
+        <Link className="button-primary" href="/roast">去交出素材</Link>
     </main>
   );
 
@@ -87,8 +87,7 @@ export default function ReportPage() {
       <nav className="report-actions" aria-label="报告操作">
         <button className="button-primary" type="button" onClick={() => setShareOpen(true)}>生成分享卡</button>
         <button className="button-secondary" type="button" onClick={copyJoke}>复制最佳金句</button>
-        <Link className="button-secondary" href="/roast">再吐槽一次</Link>
-        <Link className="button-secondary" href="/battle">发起复仇赛</Link>
+        <Link className="button-secondary" href="/roast">再锐评一条</Link>
       </nav>
       <p className="report-feedback" role="status" aria-live="polite">{notice}</p>
       <SharePoster open={shareOpen} result={report} onClose={() => setShareOpen(false)} onExport={exportSharePoster} />

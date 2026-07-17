@@ -33,7 +33,7 @@ export async function exportSharePoster(node: HTMLElement, dependencies: { toPng
     context.setLineDash([10, 10]); context.beginPath(); context.moveTo(0, 180); context.lineTo(900, 180); context.moveTo(0, 1380); context.lineTo(900, 1380); context.stroke(); context.setLineDash([]);
     context.fillStyle = "#fff4d7"; context.textAlign = "center"; context.font = "900 62px Arial"; context.fillText("AI吐槽大会", 450, 90);
     context.font = "900 22px Arial"; context.fillText("ROAST TICKET · COMEDY ARCHIVE · 2026", 450, 135);
-    context.textAlign = "left"; context.fillStyle = "#10090f"; context.font = "900 42px Arial"; context.fillText("本场吐槽报告", 80, 260);
+    context.textAlign = "left"; context.fillStyle = "#10090f"; context.font = "900 42px Arial"; context.fillText("朋友圈锐评档案", 80, 260);
     context.font = "900 24px Arial"; context.fillText(`NO. ${score}`, 650, 260);
     context.strokeStyle = "#10090f"; context.lineWidth = 3; context.beginPath(); context.moveTo(80, 290); context.lineTo(820, 290); context.stroke();
     context.fillStyle = "#8e251d"; context.font = "900 26px Arial"; context.fillText("本场观察", 80, 360);

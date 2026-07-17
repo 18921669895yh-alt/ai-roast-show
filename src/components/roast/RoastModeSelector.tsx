@@ -3,11 +3,11 @@
 import type { RoastMode } from "@/lib/domain/roast";
 
 const MODES: Array<{ value: RoastMode; label: string }> = [
-  { value: "photo", label: "锐评他的照片" },
-  { value: "outfit", label: "锐评他的穿搭" },
-  { value: "moments", label: "锐评他的朋友圈" },
-  { value: "chat", label: "锐评他的聊天风格" },
-  { value: "bio", label: "锐评他的自我介绍" },
+  { value: "photo", label: "锐评这张照片" },
+  { value: "outfit", label: "锐评这身穿搭" },
+  { value: "moments", label: "锐评这条朋友圈" },
+  { value: "chat", label: "锐评这段聊天" },
+  { value: "bio", label: "锐评这份自我介绍" },
   { value: "random", label: "随机开麦" },
 ];
 
