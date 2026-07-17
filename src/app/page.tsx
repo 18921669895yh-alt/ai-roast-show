@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import AudienceExamples from "../components/home/AudienceExamples";
 import HashFocusManager from "../components/home/HashFocusManager";
 import HeroSection from "../components/home/HeroSection";
 import RoastLevelShowcase from "../components/home/RoastLevelShowcase";
@@ -11,7 +10,6 @@ export default function Home() {
     <main id="main-content" tabIndex={-1} className="home-page">
       <HashFocusManager />
       <HeroSection />
-      <AudienceExamples />
       <ThreeStepTickets />
       <RoastLevelShowcase />
       <section id="about" tabIndex={-1} className="home-section about-section segmented-entrance" aria-labelledby="about-title">
@@ -24,7 +22,7 @@ export default function Home() {
           <p className="eyebrow">NEXT UP · 轮到你了</p>
           <h2 id="bottom-cta-title">准备好了吗？</h2>
           <p>你负责提供素材，AI负责发现那些你自己一直假装没注意到的细节。</p>
-          <p id="privacy" tabIndex={-1} className="privacy-reassurance">🔒 照片仅用于本次生成，不会进入公开观众席；你随时可以退出。</p>
+          <p id="privacy" tabIndex={-1} className="privacy-reassurance">🔒 素材仅用于本次生成，不会公开展示；你随时可以退出。</p>
         </div>
         <Link className="button-primary bottom-cta-button" href="/roast">好的，开始说我 <span aria-hidden="true">→</span></Link>
       </section>

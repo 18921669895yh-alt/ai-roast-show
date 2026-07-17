@@ -12,14 +12,14 @@ const metrics = [
 ];
 
 export default function HeroSection() {
-  const focusAudience = (event: MouseEvent<HTMLAnchorElement>) => {
+  const focusSteps = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    const audience = document.getElementById("audience");
-    if (typeof audience?.scrollIntoView === "function") {
-      audience.scrollIntoView({ behavior: "smooth", block: "start" });
+    const steps = document.getElementById("steps");
+    if (typeof steps?.scrollIntoView === "function") {
+      steps.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    audience?.focus({ preventScroll: true });
-    window.history.replaceState(null, "", "#audience");
+    steps?.focus({ preventScroll: true });
+    window.history.replaceState(null, "", "#steps");
   };
 
   return (
@@ -32,8 +32,8 @@ export default function HeroSection() {
             <h1 id="hero-title">来都来了，让 AI 说你两句</h1>
             <p className="hero-subtitle">把别人那条装腔作势的朋友圈交上来。我们不骂人，只把文案里的用力过猛逐句拆开。</p>
             <div className="hero-actions">
-              <Link className="button-primary" href="/roast">上传照片，开始吐槽</Link>
-              <a className="button-secondary" href="#audience" onClick={focusAudience}>先看看别人怎么被吐槽</a>
+              <Link className="button-primary" href="/roast">交出素材，开始锐评</Link>
+              <a className="button-secondary" href="#steps" onClick={focusSteps}>看看锐评怎么拆</a>
             </div>
             <p className="privacy-inline">不登录 · 不公开 · 照片仅用于本次生成</p>
           </div>

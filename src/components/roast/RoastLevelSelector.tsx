@@ -10,12 +10,19 @@ type RoastLevelSelectorProps = {
   onChange: (value: RoastLevel) => void;
 };
 
-const levels: Array<{ value: RoastLevel; title: string; score: string; description: string }> = [
-  { value: "gentle", title: "轻轻调侃", score: "30", description: "适合第一次上台，保证还能笑着回家。" },
-  { value: "familiar", title: "熟人互损", score: "65", description: "像认识你五年的朋友，说话开始不留情面。" },
-  { value: "stage", title: "舞台爆梗", score: "90", description: "包袱全开，但仍然不进行恶意攻击。" },
-  { value: "extreme", title: "极其恶毒", score: "100", description: "仅限虚构喜剧吐槽，确认后才会启用。" },
+const levels: Array<{ value: RoastLevel; score: string }> = [
+  { value: "gentle", score: "30" },
+  { value: "familiar", score: "65" },
+  { value: "stage", score: "90" },
+  { value: "extreme", score: "100" },
 ];
+
+const toxicLevelCopy: Record<RoastLevel, { title: string; description: string }> = {
+  gentle: { title: "轻轻带过", description: "点到为止，像熟人递来一记小小的白眼。" },
+  familiar: { title: "熟人拆台", description: "中辣开麦，专拆朋友圈里的小心机。" },
+  stage: { title: "爆辣锐评", description: "火力全开，把普通日常拆成大型人设事故。" },
+  extreme: { title: "极其恶毒", description: "虚构喜剧专用，确认后才会放大火力。" },
+};
 
 export default function RoastLevelSelector({ value, onChange }: RoastLevelSelectorProps) {
   const [confirmStage, setConfirmStage] = useState(false);
@@ -95,7 +102,7 @@ export default function RoastLevelSelector({ value, onChange }: RoastLevelSelect
               onChange={() => level.value === "stage" ? setConfirmStage(true) : level.value === "extreme" ? (window.confirm("极其恶毒档位只用于虚构喜剧吐槽。确认启用吗？") && onChange(level.value)) : onChange(level.value)}
             />
             <span className="level-score numeric" aria-hidden="true">{level.score}</span>
-            <span className="level-card-copy"><strong>{level.title}</strong><small>{level.description}</small></span>
+            <span className="level-card-copy"><strong>{toxicLevelCopy[level.value].title}</strong><small>{toxicLevelCopy[level.value].description}</small></span>
             <span className="level-indicator" aria-hidden="true" />
           </label>
         ))}
@@ -104,7 +111,7 @@ export default function RoastLevelSelector({ value, onChange }: RoastLevelSelect
         <div ref={confirmBackdrop} className="dialog-backdrop" role="presentation">
           <section ref={confirmDialog} className="level-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="level-confirm-title">
             <span className="eyebrow">浓度警告 · 90%</span>
-            <h2 id="level-confirm-title">确认开启舞台爆梗</h2>
+            <h2 id="level-confirm-title">确认开启爆辣锐评</h2>
             <p>确认开启？你的嘴硬技能可能会自动激活。</p>
             <div className="dialog-actions">
               <button ref={cancelButton} className="button-secondary" type="button" onClick={closeConfirmation}>取消</button>

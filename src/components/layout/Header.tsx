@@ -170,7 +170,7 @@ export function HeaderView({ currentPath, onLogoFiveClicks, onHomeNavigate }: He
           aria-label="主导航"
         >
           <ul>
-            {navigation.map((item) => {
+            {navigation.filter((item) => item.href !== "/battle").map((item) => {
               const itemPath = item.href.split("#")[0] || "/";
               const isCurrent = !item.href.includes("#") && currentPath === itemPath;
               return (

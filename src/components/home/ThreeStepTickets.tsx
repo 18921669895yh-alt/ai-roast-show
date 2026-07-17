@@ -1,13 +1,13 @@
 const steps = [
-  { number: "01", title: "上传照片或文字素材", copy: "交出一张照片，或贴出朋友圈、聊天记录和自我介绍。" },
-  { number: "02", title: "选择吐槽浓度", copy: "从轻轻调侃到舞台爆梗，你决定今晚的火候。" },
-  { number: "03", title: "领取你的吐槽报告", copy: "AI抓住细节，生成一份有观察、有分寸的专属报告。" },
+  { number: "01", title: "交出那条朋友圈", copy: "上传别人发的照片、朋友圈文案、聊天截图或自我介绍。" },
+  { number: "02", title: "选择锐评火力", copy: "从轻轻带过到爆辣开喷，决定这条朋友圈要被拆到几层。" },
+  { number: "03", title: "领取三段式锐评", copy: "一句话绝杀、阴阳怪气、火力全开，一次看完。" },
 ];
 
 export default function ThreeStepTickets() {
   return (
-    <section className="home-section ticket-section segmented-entrance entrance-delay-2" aria-labelledby="steps-title">
-      <div className="section-heading"><div><p className="eyebrow">ADMIT ONE · 入场指南</p><h2 id="steps-title">三步登台</h2></div></div>
+    <section id="steps" className="home-section ticket-section segmented-entrance entrance-delay-2" aria-labelledby="steps-title" tabIndex={-1}>
+      <div className="section-heading"><div><p className="eyebrow">ADMIT ONE · 锐评流程</p><h2 id="steps-title">三步拆穿一条朋友圈</h2></div></div>
       <ol className="ticket-list">
         {steps.map((step) => (
           <li className="ticket" key={step.number}>
