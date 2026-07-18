@@ -5,6 +5,11 @@ import LoadingComedyStage, { LOADING_MESSAGES } from "./LoadingComedyStage";
 describe("LoadingComedyStage", () => {
   afterEach(() => vi.useRealTimers());
 
+  it("keeps the loading copy focused on the submitted Moment", () => {
+    expect(LOADING_MESSAGES.join(" ")).toContain("这条朋友圈");
+    expect(LOADING_MESSAGES.join(" ")).not.toContain("让你笑着破防");
+  });
+
   it("rotates messages every 1.4 seconds and cancels", async () => {
     vi.useFakeTimers();
     const onCancel = vi.fn();

@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 export type LoadingPhase = "preparing" | "analyzing" | "writing";
 
 export const LOADING_MESSAGES = [
-  "正在寻找最有喜剧价值的细节……",
-  "正在组织一个不伤人的包袱……",
-  "正在评估你的嘴硬程度……",
-  "正在把朋友圈里的用力过猛标出来……",
-  "正在删除三个过于冒犯的笑话……",
-  "正在努力让你笑着破防……",
+  "正在寻找这条朋友圈最用力的细节……",
+  "正在拆开这条朋友圈的包装……",
+  "正在给这条内容的装感做标记……",
+  "正在把文案里的小心机圈出来……",
+  "正在删除三个不够聪明的笑话……",
+  "正在给这条朋友圈写下最后一刀……",
 ] as const;
 
 export default function LoadingComedyStage({ onCancel, phase = "writing" }: { onCancel: () => void; phase?: LoadingPhase }) {
@@ -26,7 +26,7 @@ export default function LoadingComedyStage({ onCancel, phase = "writing" }: { on
       <span className="live-badge">AI LIVE</span>
       <h2 id="loading-title">AI 正在拆文案</h2>
       <div className="loading-wave" aria-hidden="true">▂ ▅ ▃ ▇ ▄ ▆ ▂</div>
-      <p className="loading-phase">{phase === "preparing" ? "图片准备中 · 正在压缩以减少等待" : phase === "analyzing" ? "图片已上传 · Kimi 正在识别画面" : "识别完成 · 正在生成吐槽文字"}</p>
+      <p className="loading-phase">{phase === "preparing" ? "图片准备中 · 正在压缩以减少等待" : phase === "analyzing" ? "图片已上传 · Kimi 正在识别画面" : "识别完成 · 正在生成朋友圈锐评"}</p>
       <p role="status" aria-live="polite" aria-atomic="true">{LOADING_MESSAGES[index]}</p>
       <button className="button-secondary" type="button" onClick={onCancel}>取消生成</button>
     </section>
